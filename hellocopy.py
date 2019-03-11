@@ -5,6 +5,7 @@ import os
 import sys
 import time
 from motor.largemotor import runlargemoto
+from motor.largemotor import goforward
 from ev3dev2.motor import OUTPUT_A, OUTPUT_B, OUTPUT_C, OUTPUT_D
 from sound.sound import trytospeak
 from threading import Thread
@@ -64,7 +65,8 @@ def main():
     t.start()
 
     # run large moto
-    runlargemoto(OUTPUT_A)
+    #runlargemoto(OUTPUT_A)
+    goforward(OUTPUT_A,OUTPUT_D)
 
 
 if __name__ == '__main__':
