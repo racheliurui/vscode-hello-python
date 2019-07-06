@@ -53,16 +53,16 @@ def main():
     set_font('Lat15-Terminus24x12')
 
     # print something to the screen of the device
-    print('Hello World! Raymond')
+    #print('Hello World! Raymond')
 
     # print something to the output panel in VS Code
-    debug_print('Hello VS Code!')
+    #debug_print('Hello VS Code!')
 
     # wait a bit so you have time to look at the display before the program
     # exits
     time.sleep(5)
-    t = Thread(target=trytospeak)
-    t.start()
+    #t = Thread(target=trytospeak)
+    #t.start()
 
     # run large moto
     #runlargemoto(OUTPUT_A)
