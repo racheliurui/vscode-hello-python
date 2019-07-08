@@ -3,8 +3,10 @@
 
 import os
 import sys
-sys.path.append('/usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK')
-import AWSIoTPythonSDK
+import _thread
+import Debug
+
+from greengrass.pubsub import publish
 
 from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_D, SpeedPercent, MoveTank
 from ev3dev2.sensor import INPUT_1
@@ -13,10 +15,9 @@ from ev3dev2.led import Leds
 from motor.largemotor import goforward
 
 
-
-
 def main():
-   print( sys.modules['AWSIoTPythonSDK'])
+   Debug.debug_print(sys.path)
+   _thread.start_new_thread(publish,())
    goforward(OUTPUT_A,OUTPUT_D)
 
 if __name__ == '__main__':

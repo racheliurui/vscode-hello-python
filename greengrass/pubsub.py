@@ -1,10 +1,11 @@
 import os
 import sys
-from downloads.AWSIoTPythonSDK import AWSIoTMQTTClient
+from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 import logging
 import time
 import argparse
 import json
+import Debug
 
 
 
@@ -54,6 +55,6 @@ def publish():
             messageJson = json.dumps(message)
             myAWSIoTMQTTClient.publish(topic, messageJson, 1)
             if mode == 'publish':
-                print('Published topic %s: %s\n' % (topic, messageJson))
+                Debug.debug_print('Published topic %s: %s\n' % (topic, messageJson))
             loopCount += 1
         time.sleep(1)

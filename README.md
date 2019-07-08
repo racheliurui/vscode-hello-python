@@ -31,26 +31,10 @@ pip install awsiotsdk
 
 ### Default installation location:
 /usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK
-
-### Default python Path on EV3
-```shell
-robot@ev3dev:~/vscode-hello-python/downloads/awsiot$ python -c "import sys; print sys.path"
-['', '/usr/lib/python2.7', '/usr/lib/python2.7/plat-arm-linux-gnueabi', '/usr/lib/python2.7/lib-tk', '/usr/lib/python2.7/lib-old', '/usr/lib/python2.7/lib-dynload', '/usr/local/lib/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages', '/usr/lib/python2.7/dist-packages/gtk-2.0']
-```
-/usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK
-
- python -c "import sys; sys.path.append('/usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK');import AWSIoTPythonSDK; print sys.modules['AWSIoTPythonSDK']"
+cp /usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK <coderoot>/
 
 
- python -c "import sys; import AWSIoTPythonSDK; print sys.modules['AWSIoTPythonSDK']"
-
-
-export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK
-
-PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK
- python <your-program>
-
-sdk/test/Python
+### 
 
 
 # Open issues
