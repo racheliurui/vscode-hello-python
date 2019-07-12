@@ -6,27 +6,34 @@ Main entrance to the logic
 3) Keep updating the Sensor Reading
 '''
 
-import os
-import sys
 from threading import Thread
-import Debug
-import ggpubsub
-import SensorReading
-from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_D, SpeedPercent, MoveTank
-from ev3dev2.sensor import INPUT_1
-from ev3dev2.sensor.lego import TouchSensor
-from ev3dev2.led import Leds
-from motor.largemotor import goforward
+import debug
+import ggpub
+import refreshSensorReading
+import button
+import vars
 
-global Readings
-Readings=None
 
 
 #https://sites.google.com/site/ev3devpython/learn_ev3_python/threads
 def main():
-   Debug.debug_print(sys.path)
-   Thread(target=ggpubsub.publish,args=())
-   goforward(OUTPUT_A,OUTPUT_D)
+   t1=Thread(target=refreshSensorReading.refresh_colorsensor_reading_lt,args=())
+   t2=Thread(target=refreshSensorReading.refresh_colorsensor_reading_rt,args=())
+   t3=Thread(target=refreshSensorReading.refresh_ultrasonicSensorReading,args=())
+   t4=Thread(target=button.wait_buttonPressed,args=())
+   t5=Thread(target=ggpub.publish,args=())
+   t1.daemon=True
+   t2.daemon=True
+   t3.daemon=True
+   t4.daemon=True
+   t5.daemon=True
+   t1.start()
+   t2.start()
+   t3.start()
+   t4.start()
+   t5.start()
+   while not vars.buttonPressed :
+       pass
 
 if __name__ == '__main__':
     main()
