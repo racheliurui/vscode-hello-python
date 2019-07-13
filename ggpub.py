@@ -6,6 +6,7 @@ import ggClient
 import json
 import time
 import debug
+import checkColor
 
 def publish():
     while True:
@@ -20,6 +21,10 @@ def publish():
       data['colorSensor_color_reading_rt'] = sensorReading.colorSensor_color_rt
       data['colorSensor_rawred_lt'] = sensorReading.colorSensor_rawred_lt
       data['colorSensor_rawgreen_lt'] = sensorReading.colorSensor_rawgreen_lt
+
+      # Debug
+      debug.speakout(checkColor.getColorString(sensorReading.colorSensor_color_rt))
+
 
 
       data['colorSensor_rawblue_lt'] = sensorReading.colorSensor_rawblue_lt
