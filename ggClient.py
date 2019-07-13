@@ -10,7 +10,6 @@ useWebsocket = False
 clientId = "basicPubSub"
 topic = "sdk/test/Python"
 mode = 'publish'
-ggClient = getnewclient()
 
 
 def getnewclient():
@@ -42,3 +41,6 @@ def getnewclient():
 def refresh_ggclient():
     global ggClient
     ggClient=getnewclient()
+
+
+ggClient = getnewclient()

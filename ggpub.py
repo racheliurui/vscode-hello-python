@@ -7,7 +7,7 @@ import json
 import time
 import debug
 
-def publish(topic, messageJson):
+def publish():
     while True:
       data = {}
       data['colorSensor_mode_lt'] = sensorReading.colorSensor_mode_lt
