@@ -10,13 +10,14 @@ import debug
 def publish():
     while True:
       data = {}
+
       data['colorSensor_mode_lt'] = sensorReading.colorSensor_mode_lt
       data['colorSensor_mode_rt'] = sensorReading.colorSensor_mode_rt
 
       data['colorSensor_reflect_lt'] = sensorReading.colorSensor_reflect_lt
       data['colorSensor_reflect_rt'] = sensorReading.colorSensor_reflect_rt
-      data['colorSensor_color_lt'] = sensorReading.colorSensor_color_lt
-      data['colorSensor_color_rt'] = sensorReading.colorSensor_color_rt
+      data['colorSensor_color_reading_lt'] = sensorReading.colorSensor_color_lt
+      data['colorSensor_color_reading_rt'] = sensorReading.colorSensor_color_rt
       data['colorSensor_rawred_lt'] = sensorReading.colorSensor_rawred_lt
       data['colorSensor_rawgreen_lt'] = sensorReading.colorSensor_rawgreen_lt
 
@@ -30,4 +31,5 @@ def publish():
 
       #print("sensor reading published as  " + json.dumps(data) )
       debug.debug_print(json.dumps(data))
-      time.sleep(0.1)
+      #time.sleep(0.1)
+      time.sleep(1)

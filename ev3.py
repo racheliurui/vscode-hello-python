@@ -11,6 +11,7 @@ colorSensor_lt.mode=sensorReading.colorSensor_mode_default
 colorSensor_rt.mode=sensorReading.colorSensor_mode_default
 
 ultrasonicSensor = UltrasonicSensor(INPUT_3)
+ultrasonicSensor.mode="US-DIST-CM"
 
 # initiate all motors
 largeMotor_lt = LargeMotor(OUTPUT_D)
