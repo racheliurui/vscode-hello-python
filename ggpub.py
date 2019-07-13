@@ -15,6 +15,8 @@ def publish():
 
       data['colorSensor_reflect_lt'] = sensorReading.colorSensor_reflect_lt
       data['colorSensor_reflect_rt'] = sensorReading.colorSensor_reflect_rt
+      data['colorSensor_color_lt'] = sensorReading.colorSensor_color_lt
+      data['colorSensor_color_rt'] = sensorReading.colorSensor_color_rt
       data['colorSensor_rawred_lt'] = sensorReading.colorSensor_rawred_lt
       data['colorSensor_rawgreen_lt'] = sensorReading.colorSensor_rawgreen_lt
 

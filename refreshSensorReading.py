@@ -15,6 +15,8 @@ def refresh_colorsensor_reading_lt():
            sensorReading.colorSensor_rawred_reading_lt=ev3.colorSensor_lt.red
            sensorReading.colorSensor_rawgreen_reading_lt=ev3.colorSensor_lt.green
            sensorReading.colorSensor_rawblue_reading_lt=ev3.colorSensor_lt.blue
+      elif (ev3.colorSensor_lt.mode=="COL-COLOR"):
+           sensorReading.colorSensor_color_reading_lt=ev3.colorSensor_lt.value()
 
 def refresh_colorsensor_reading_rt():
     while True:
@@ -26,7 +28,8 @@ def refresh_colorsensor_reading_rt():
            sensorReading.colorSensor_rawred_reading_rt=ev3.colorSensor_rt.red
            sensorReading.colorSensor_rawgreen_reading_rt=ev3.colorSensor_rt.green
            sensorReading.colorSensor_rawblue_reading_rt=ev3.colorSensor_rt.blue
-
+      elif (ev3.colorSensor_rt.mode=="COL-COLOR"):
+           sensorReading.colorSensor_color_reading_rt=ev3.colorSensor_rt.value()
 
 
 

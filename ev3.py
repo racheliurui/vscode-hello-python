@@ -5,15 +5,15 @@ from ev3dev2.sensor.lego import ColorSensor, UltrasonicSensor
 import sensorReading
 
 # initiate color sensors
-colorSensor_lt = ColorSensor(INPUT_3)
+colorSensor_lt = ColorSensor(INPUT_4)
 colorSensor_rt = ColorSensor(INPUT_1)
 colorSensor_lt.mode=sensorReading.colorSensor_mode_default
 colorSensor_rt.mode=sensorReading.colorSensor_mode_default
 
-ultrasonicSensor = UltrasonicSensor(INPUT_2)
+ultrasonicSensor = UltrasonicSensor(INPUT_3)
 
 # initiate all motors
-largeMotor_lt = LargeMotor(OUTPUT_A)
-largeMotor_rt = LargeMotor(OUTPUT_D)
+largeMotor_lt = LargeMotor(OUTPUT_D)
+largeMotor_rt = LargeMotor(OUTPUT_A)
 
 
