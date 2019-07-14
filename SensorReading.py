@@ -7,7 +7,6 @@
 speedReading=0
 
 
-
 # Color Sensor Readings
 # COL-REFLECT COL-AMBIENT COL-COLOR RGB-RAW
 colorSensor_mode_default = "COL-COLOR"

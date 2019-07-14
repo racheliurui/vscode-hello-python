@@ -1,40 +1,33 @@
 #!/usr/bin/env python3
 
 # Read current sensor reading and publish
-import sensorReading
+#import sensorReading
+import ev3
 import ggClient
 import json
 import time
 import debug
 import checkColor
+import sound
 
 def publish():
     while True:
-      data = {}
+        data = {}
 
-      data['colorSensor_mode_lt'] = sensorReading.colorSensor_mode_lt
-      data['colorSensor_mode_rt'] = sensorReading.colorSensor_mode_rt
+        #COL-REFLECT COL-AMBIENT COL-COLOR RGB-RAW
+        data['colorSensor_mode_lt'] = ev3.colorSensor_lt.mode
+        data['colorSensor_mode_rt'] = ev3.colorSensor_rt.mode
+        if data['colorSensor_mode_lt']=="COL-COLOR":
+             data['colorSensor_color_reading_lt'] = ev3.colorSensor_lt.value()
+             data['colorSensor_color_reading_lt_string'] = checkColor.getColorString(data['colorSensor_color_reading_lt'])
 
-      data['colorSensor_reflect_lt'] = sensorReading.colorSensor_reflect_lt
-      data['colorSensor_reflect_rt'] = sensorReading.colorSensor_reflect_rt
-      data['colorSensor_color_reading_lt'] = sensorReading.colorSensor_color_lt
-      data['colorSensor_color_reading_rt'] = sensorReading.colorSensor_color_rt
-      data['colorSensor_rawred_lt'] = sensorReading.colorSensor_rawred_lt
-      data['colorSensor_rawgreen_lt'] = sensorReading.colorSensor_rawgreen_lt
+        if data['colorSensor_mode_rt']=="COL-COLOR":
+             data['colorSensor_color_reading_rt'] = ev3.colorSensor_rt.value()
+             data['colorSensor_color_reading_rt_string'] = checkColor.getColorString(data['colorSensor_color_reading_rt'])
 
-      # Debug
-      debug.speakout(checkColor.getColorString(sensorReading.colorSensor_color_rt))
+        data['ultrasonicSensor_ReadingInCm'] = ev3.ultrasonicSensor.value()
 
-
-
-      data['colorSensor_rawblue_lt'] = sensorReading.colorSensor_rawblue_lt
-      data['colorSensor_rawred_rt'] = sensorReading.colorSensor_rawred_rt
-      data['colorSensor_rawgreen_rt'] = sensorReading.colorSensor_rawgreen_rt
-      data['colorSensor_rawblue_rt'] = sensorReading.colorSensor_rawblue_rt
-
-      data['ultrasonicSensor_ReadingInCm'] = sensorReading.ultrasonicSensor_ReadingInCm
-
-      #print("sensor reading published as  " + json.dumps(data) )
-      debug.debug_print(json.dumps(data))
-      #time.sleep(0.1)
-      time.sleep(1)
+        #print("sensor reading published as  " + json.dumps(data) )
+        debug.debug_print(json.dumps(data))
+        #time.sleep(0.1)
+        time.sleep(1)

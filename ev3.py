@@ -5,6 +5,8 @@ from ev3dev2.sensor.lego import ColorSensor, UltrasonicSensor
 import sensorReading
 
 # initiate color sensors
+# the colour sensor needs to be between 1-2 cm away from the surface you are trying to measure. (color mode)
+
 colorSensor_lt = ColorSensor(INPUT_4)
 colorSensor_rt = ColorSensor(INPUT_1)
 colorSensor_lt.mode=sensorReading.colorSensor_mode_default
@@ -14,7 +16,11 @@ ultrasonicSensor = UltrasonicSensor(INPUT_3)
 ultrasonicSensor.mode="US-DIST-CM"
 
 # initiate all motors
-largeMotor_lt = LargeMotor(OUTPUT_D)
-largeMotor_rt = LargeMotor(OUTPUT_A)
+largeMotor_port_lt = OUTPUT_D
+largeMotor_port_rt = OUTPUT_A
+largeMotor_lt = LargeMotor(largeMotor_port_lt)
+largeMotor_rt = LargeMotor(largeMotor_port_rt)
+
+largeMotor_lt.speed
 
 
