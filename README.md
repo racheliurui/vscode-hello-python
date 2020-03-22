@@ -1,3 +1,16 @@
+# Update
+
+>
+https://github.com/ev3dev/ev3dev/releases/download/ev3dev-stretch-2019-10-23/ev3dev-stretch-ev3-generic-2019-10-23.zip
+
+* Use above version avoid the offical version on education.lego.com
+
+* Connect to Wifi ; check the ip address
+ 
+* Check traceroute to ip works; check port is opened
+
+* Use ip as the device name 
+
 # Flash the card guide
 
 https://sites.google.com/site/ev3devpython/setting-up-vs-code
