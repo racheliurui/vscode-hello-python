@@ -2,13 +2,13 @@
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 
 # AWS Greengrass Config
-host = "a1afr0tqzp932s-ats.iot.ap-southeast-2.amazonaws.com"
+host = "a2rizlo4ii9h59-ats.iot.ap-southeast-2.amazonaws.com"
 rootCAPath = "downloads/root-CA.crt"
-certificatePath = "downloads/testtest.cert.pem"
-privateKeyPath = "downloads/testtest.private.key"
+certificatePath = "downloads/EV3Lego1.cert.pem"
+privateKeyPath = "downloads/EV3Lego1.private.key"
 useWebsocket = False
-clientId = "basicPubSub"
-topic = "sdk/test/Python"
+clientId = "EV3Lego1"
+topic = "topic_1"
 mode = 'publish'
 
 

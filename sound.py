@@ -14,4 +14,6 @@ def debug_makeSomeSound():
            time.sleep(1)
            message=None
 
+def speak(message):
+    sound.speak(message)
 

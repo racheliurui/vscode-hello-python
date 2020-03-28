@@ -1,3 +1,7 @@
+# Set up MQTT
+
+
+
 # Update
 
 >
@@ -10,6 +14,10 @@ https://github.com/ev3dev/ev3dev/releases/download/ev3dev-stretch-2019-10-23/ev3
 * Check traceroute to ip works; check port is opened
 
 * Use ip as the device name 
+https://www.ev3dev.org/docs/tutorials/connecting-to-ev3dev-with-ssh/
+
+robot 
+maker
 
 # Flash the card guide
 
@@ -54,6 +62,16 @@ py -3 -m venv .venv
 .venv\Scripts\activate
 pip install --upgrade pip
 pip install python-ev3dev2
+```
+
+command for mac book
+
+```mac 
+python3 -m venv .venv
+. .venv/bin/activate
+pip install --upgrade pip
+pip install python-ev3dev2
+
 ```
 
 See below
