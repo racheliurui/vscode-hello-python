@@ -59,11 +59,12 @@ maker
 
 ## update aws iot sdk 
 
-Get latest AWSIoTPythonSDK, replace the version under <gitroot>/AWSIoTPyThonSDK
+Provision a thing, get the Python Starter Package.
 
 https://pypi.org/project/AWSIoTPythonSDK/1.0.0/#installation
 
 ```shell
+
 sudo python setup.py install
 sudo apt update
 sudo apt install python-pip
@@ -72,6 +73,12 @@ ls /usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK
 cp /usr/local/lib/python2.7/dist-packages/AWSIoTPythonSDK ~/github/vscode-hello-python/
 ```
 
+## Check Policy
+
+* Check Thing Policy has access to connect and publish 
+* Check IoT rule has access to route message to target (SNS in this case)
+* Enable IoT Rule Error log , so that if Rule has falure, you can capture it from cloudwatch
+* Use Raw format from IoT Rule output when pumping data to SNS (to avoid format rule)
 
 # Issues
 

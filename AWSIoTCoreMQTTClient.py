@@ -13,11 +13,11 @@ def getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,c
     if useWebsocket:
         client = AWSIoTMQTTClient(clientId, useWebsocket)
         client.configureEndpoint(endPoint, port)
-        client.configureCredentials(rootCAPath)
+        client.configureCredentials(rootCAPath, KeyPath=privateKeyPath, CertificatePath=certificatePath)
     else:
         client = AWSIoTMQTTClient(clientId)
         client.configureEndpoint(endPoint, port)
-        client.configureCredentials(rootCAPath, privateKeyPath, certificatePath)
+        client.configureCredentials(rootCAPath, KeyPath=privateKeyPath, CertificatePath=certificatePath)
 
     # config.ggClient connection configuration
     #http://www.bitreactive.com/blog/2015/06/26/how-fast-can-you-publish-mqtt-messages/
@@ -25,5 +25,5 @@ def getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,c
     client.configureOfflinePublishQueueing(1000)  # Infinite offline Publish queueing
     client.configureDrainingFrequency(2)  # Draining: 2 Hz
     client.configureConnectDisconnectTimeout(10)  # 10 sec
-    client.configureMQTTOperationTimeout(5)  # 5 sec
+    client.configureMQTTOperationTimeout(20)  # 5 sec
     return client

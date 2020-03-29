@@ -1,13 +1,4 @@
 #!/usr/bin/env python3
-# AWS IoT Core MQTT Client Config
-'''
-rootCAPath= "downloads/root-CA.crt"
-certificatePath = "downloads/EV3Lego1.cert.pem"
-privateKeyPath = "downloads/EV3Lego1.private.key"
-endPoint = "a2rizlo4ii9h59-ats.iot.ap-southeast-2.amazonaws.com"
-clientId = "EV3Lego1"
-useWebsocket = False
-'''
 
 from threading import Thread
 import os
@@ -16,6 +7,17 @@ import time
 import debug
 import AWSIoTCoreMQTTClient
 import EV3MQTTPublisher
+
+## Load Global Config
+import config as config
+rootCAPath= config.IoT["rootCAPath"]
+certificatePath = config.IoT["certificatePath"]
+privateKeyPath = config.IoT["privateKeyPath"]
+endPoint = config.IoT["endPoint"]
+clientId = config.IoT["clientId"]
+useWebsocket = config.IoT["useWebsocket"]
+QoS = config.IoT["QoS"]
+
 
 #https://sites.google.com/site/ev3devpython/learn_ev3_python/threads
 def main():
@@ -27,18 +29,19 @@ def main():
 
 
 def mainPublisher():
-   rootCAPath= "downloads/root-CA.crt"
-   certificatePath = "downloads/EV3Lego1.cert.pem"
-   privateKeyPath = "downloads/EV3Lego1.private.key"
-   endPoint = "a2rizlo4ii9h59-ats.iot.ap-southeast-2.amazonaws.com"
-   clientId = "EV3Lego1"
-   useWebsocket = False
    mqttClient=AWSIoTCoreMQTTClient.getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,clientId,useWebsocket)
+   mqttClient.connect()
    loop=0
-   while loop<1000:
-     EV3MQTTPublisher.publishEV3Status(mqttClient,"topic_1")
+   while loop<30:
+     try:
+       EV3MQTTPublisher.publishEV3Status(mqttClient,"topic_1",QoS)
+     except:
+       print("error happened while publishing")
+     debug.debug_print(loop)
      loop = loop +1
+
    debug.debug_print("published " + str(loop) + " mqtt messages" )
+   mqttClient.disconnect()
 
 def debug_makeSomeSound():
     from ev3dev2.sound import Sound

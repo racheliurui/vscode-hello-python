@@ -981,7 +981,7 @@ class Client(object):
             message.retain = retain
             message.dup = False
 
-            self._out_message_mutex.acquire()                
+            self._out_message_mutex.acquire()
             self._out_messages.append(message)
             if self._max_inflight_messages == 0 or self._inflight_messages < self._max_inflight_messages:
                 self._inflight_messages = self._inflight_messages+1
@@ -990,7 +990,7 @@ class Client(object):
                 elif qos == 2:
                     message.state = mqtt_ms_wait_for_pubrec
                 self._out_message_mutex.release()
-                    
+
                 rc = self._send_publish(message.mid, message.topic, message.payload, message.qos, message.retain, message.dup)
 
                 # remove from inflight messages so it will be send after a connection is made
@@ -998,7 +998,7 @@ class Client(object):
                     with self._out_message_mutex:
                         self._inflight_messages -= 1
                         message.state = mqtt_ms_publish
-                        
+
                 return (rc, local_mid)
             else:
                 message.state = mqtt_ms_queued;
@@ -1024,7 +1024,7 @@ class Client(object):
         socket_factory: create_connection function which creates a socket to user's specification
         """
         self._socket_factory = socket_factory
-        
+
     def disconnect(self):
         """Disconnect a connected client from the broker."""
         self._state_mutex.acquire()
@@ -1426,10 +1426,10 @@ class Client(object):
         Messages that match 'sub' will be passed to 'callback'. Any
         non-matching messages will be passed to the default on_message
         callback.
-        
+
         Call multiple times with different 'sub' to define multiple topic
         specific callbacks.
-        
+
         Topic specific callbacks may be removed with
         message_callback_remove()."""
         if callback is None or sub is None:
@@ -2439,7 +2439,7 @@ class Client(object):
         raise ssl.SSLError('Certificate subject does not match remote hostname.')
 
 
-# Compatibility class for easy porting from mosquitto.py. 
+# Compatibility class for easy porting from mosquitto.py.
 class Mosquitto(Client):
     def __init__(self, client_id="", clean_session=True, userdata=None):
         super(Mosquitto, self).__init__(client_id, clean_session, userdata)

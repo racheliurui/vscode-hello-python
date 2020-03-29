@@ -1,0 +1,11 @@
+config = {
+   "rootCAPath" : "downloads/root-CA.crt",
+   "certificatePath" : "downloads/xxx.cert.pem",
+   "privateKeyPath" : "downloads/EV3xxxLego1.private.key",
+   "endPoint": "xxxxxxx-ats.iot.xx-xxx-xx.amazonaws.com",
+   "clientId":  "basicPubSub",
+   "useWebsocket": False,
+   "QoS":1
+}
+
+debugToConsole=False
