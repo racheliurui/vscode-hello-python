@@ -9,7 +9,7 @@ from ev3dev2.power import PowerSupply
 powerSupply= PowerSupply()
 
 def publishVoltage(mqttClient,topic):
-     while True:
+    while True:
         data = {}
         data['measured_volts'] = powerSupply.measured_volts
         #print("sensor reading published as  " + json.dumps(data) )
