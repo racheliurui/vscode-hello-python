@@ -2,6 +2,7 @@ import sys
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 import json
 import time
+import vars
 
 ## Load Global Config
 import config as config
@@ -12,6 +13,7 @@ endPoint = config.IoT["endPoint"]
 clientId = config.IoT["clientId"]
 useWebsocket = config.IoT["useWebsocket"]
 QoS = config.IoT["QoS"]
+
 
 def dummy_getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,clientId,useWebsocket):
     # Port defaults
@@ -34,8 +36,8 @@ def dummy_getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endP
     client.configureAutoReconnectBackoffTime(1, 32, 20)
     client.configureOfflinePublishQueueing(1000)  # Infinite offline Publish queueing
     client.configureDrainingFrequency(2)  # Draining: 2 Hz
-    client.configureConnectDisconnectTimeout(10)  # 10 sec
-    client.configureMQTTOperationTimeout(20)  # 5 sec
+    #client.configureConnectDisconnectTimeout(10)  # 10 sec
+    #client.configureMQTTOperationTimeout(20)  # 5 sec
     return client
 
 
@@ -52,15 +54,46 @@ def dummy_publishEV3Status(mqttClient,topic):
     #throttle
     #time.sleep(1)
 
+
+def debugPublish():
+    mqttClient=dummy_getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,clientId,useWebsocket)
+    mqttClient.connect()
+    loop=0
+    while loop<5:
+        try:
+            dummy_publishEV3Status(mqttClient,"topic_1")
+            print(loop)
+            loop = loop +1
+        except:
+           print("error happened while publishing")
+    print("published " + str(loop) + " mqtt messages" )
+    mqttClient.disconnect()
+
+def msgCallback(client, userdata, message):
+    print("Received a new message: ")
+    print(message.payload)
+    print("from topic: ")
+    print(message.topic)
+    print("--------------\n\n")
+
+def cmdCallback(client, userdata, message):
+    print("Received a new message: ")
+    message.payload = message.payload.decode("utf-8")
+    print(message.payload)
+    if message.payload == "stop":
+       vars.buttonPressed=True
+    print("--------------\n\n")
+
+
 mqttClient=dummy_getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,clientId,useWebsocket)
 mqttClient.connect()
-loop=0
-while loop<5:
-    try:
-        dummy_publishEV3Status(mqttClient,"topic_1")
-        print(loop)
-        loop = loop +1
-    except:
-       print("error happened while publishing")
-print("published " + str(loop) + " mqtt messages" )
-mqttClient.disconnect()
+mqttClient.subscribe("topic_1", 1, msgCallback)
+mqttClient.subscribe("topic_2", 1, cmdCallback)
+
+
+while not vars.buttonPressed:
+       time.sleep(2)
+       dummy_publishEV3Status(mqttClient,"topic_1")
+
+
+

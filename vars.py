@@ -1,1 +1,2 @@
 buttonPressed=False
+keepRunning=True

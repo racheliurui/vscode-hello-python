@@ -4,10 +4,15 @@ from threading import Thread
 import os
 import sys
 import time
-import debug
+from ev3dev2.sound import Sound
 import AWSIoTCoreMQTTClient
-import EV3MQTTPublisher
 
+
+import EV3MQTTPublisher
+import vars
+import debug
+
+sound = Sound()
 ## Load Global Config
 import config as config
 rootCAPath= config.IoT["rootCAPath"]
@@ -19,34 +24,37 @@ useWebsocket = config.IoT["useWebsocket"]
 QoS = config.IoT["QoS"]
 
 
+def commandCallback(client, userdata, message):
+    debug.debug_print("Received a new message: ")
+    message.payload = message.payload.decode("utf-8")
+    debug.debug_print(message.payload)
+    sound.speak("I have received to command to " + message.payload)
+    if message.payload == "stop":
+       vars.keepRunning=False
+    debug.debug_print("--------------\n\n")
+
 #https://sites.google.com/site/ev3devpython/learn_ev3_python/threads
 def main():
-    t1=Thread(target=mainPublisher,args=())
-    t1.daemon=True
-    t1.start()
+    sound.speak("mission started, I will keep you posted")
+    mqttClient=AWSIoTCoreMQTTClient.getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,clientId,useWebsocket)
+    mqttClient.connect()
+    # Run subscriber
+    mqttClient.subscribe("command", 1, commandCallback)
 
+    # Run publisher
+    while vars.keepRunning:
+     try:
+       EV3MQTTPublisher.publishEV3Status(mqttClient,"topic_1",QoS)
+       time.sleep(2)
+     except:
+       debug.debug_print("error happened while publishing")
+
+    mqttClient.disconnect()
     debug_makeSomeSound()
 
 
-def mainPublisher():
-   mqttClient=AWSIoTCoreMQTTClient.getAWSIoTCoreMQTTClient(rootCAPath,certificatePath,privateKeyPath,endPoint,clientId,useWebsocket)
-   mqttClient.connect()
-   loop=0
-   while loop<30:
-     try:
-       EV3MQTTPublisher.publishEV3Status(mqttClient,"topic_1",QoS)
-     except:
-       print("error happened while publishing")
-     debug.debug_print(loop)
-     loop = loop +1
-
-   debug.debug_print("published " + str(loop) + " mqtt messages" )
-   mqttClient.disconnect()
-
 def debug_makeSomeSound():
-    from ev3dev2.sound import Sound
-    sound = Sound()
-    sound.speak("hello")
+    sound.speak("mission completed")
 
 
 if __name__ == '__main__':
