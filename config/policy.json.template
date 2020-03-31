@@ -1,0 +1,41 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Publish"
+      ],
+      "Resource": [
+        "arn:aws:iot:ap-southeast-2:${account_number}:topic/data/${iot:ClientId}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Receive"
+      ],
+      "Resource": [
+        "arn:aws:iot:ap-southeast-2:${account_number}:topic/command/${iot:ClientId}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Subscribe"
+      ],
+      "Resource": [
+        "arn:aws:iot:ap-southeast-2:${account_number}:topicfilter/command/${iot:ClientId}"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Connect"
+      ],
+      "Resource": [
+        "arn:aws:iot:ap-southeast-2:${account_number}:client/${iot:ClientId}"
+      ]
+    }
+  ]
+}
